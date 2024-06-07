@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Recommendations</title>
+    <link rel="stylesheet" href="ken.css">
+    <style>
+        /* Animation CSS */
+        @keyframes move-background {
+            from {
+                transform: translate3d(0px, 0px, 0px);
+            }
+            to { 
+                transform: translate3d(1000px, 0px, 0px);
+            }
+        }
+
+        @-webkit-keyframes move-background {
+            from {
+                -webkit-transform: translate3d(0px, 0px, 0px);
+            }
+            to { 
+                -webkit-transform: translate3d(1000px, 0px, 0px);
+            }
+        }
+
+        @-moz-keyframes move-background {    
+            from {
+                -webkit-transform: translate3d(0px, 0px, 0px);
+            }
+            to { 
+                -webkit-transform: translate3d(1000px, 0px, 0px);
+            }
+        }
+
+        .twinkling {
+            /* Your existing CSS for twinkling */
+            animation: move-background 70s linear infinite;
+        }
+
+        .clouds {
+            /* Your existing CSS for clouds */
+            animation: move-background 150s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Study Recommendations</h1>
+        <p>Enter your Student ID and topics for the next test to receive personalized study recommendations and timetable:</p>
+        <form action="/" method="POST">
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" required><br><br>
+
+            {% for subject in subjects %}
+            <label for="topics_{{ subject }}">Topics for the next test in {{ subject }}:</label>
+            <input type="text" id="topics_{{ subject }}" name="topics_{{ subject }}"><br><br>
+            {% endfor %}
+
+            <input type="submit" value="Submit">
+        </form>
+
+        {% if study_recommendations %}
+        <h2>Study Recommendations:</h2>
+        {% for subject, recommendation in study_recommendations.items() %}
+        <h3>{{ subject }}</h3>
+        <p>{{ recommendation }}</p>
+        {% endfor %}
+        {% endif %}
+
+        {% if timetable %}
+        <h2>Timetable:</h2>
+        <div class="timetable">
+            {% for subject, df in timetable.items() %}
+            <div class="timetable-entry">
+                <h3>Subject: {{ subject }}</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Guidance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, row in df.iterrows() %}
+                        <tr>
+                            <td>{{ row['Time'] }}</td>
+                            <td>{{ row['Guidance'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <!-- Animations -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
+</body>
+</html>

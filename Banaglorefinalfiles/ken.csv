@@ -1,0 +1,6 @@
+Student ID,Student Name,Gender,Age,Family Size,Parental Education,Study Time,Absences,Exam 1 Score,Exam 2 Score,Exam 3 Score,Exam 4 Score,Final Grade
+1,Student 1,Male,15,4,High School,3 hours,2,75,80,85,90,78
+2,Student 2,Female,16,3,Bachelor's Degree,5 hours,1,85,90,88,92,88
+3,Student 3,Male,17,5,Master's Degree,4 hours,3,70,75,80,82,72
+4,Student 4,Female,15,4,High School,2 hours,0,90,85,92,88,88
+5,Student 5,Male,16,4,High School,3 hours,4,65,70,75,78,68

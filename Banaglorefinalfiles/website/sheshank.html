@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Study Recommendations</h1>
+        <p>Enter your Student ID and topics for the next test to receive personalized study recommendations and timetable:</p>
+        <form action="/" method="POST">
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" required><br><br>
+
+            {% for subject in subjects %}
+            <label for="topics_{{ subject }}">Topics for the next test in {{ subject }}:</label>
+            <input type="text" id="topics_{{ subject }}" name="topics_{{ subject }}"><br><br>
+            {% endfor %}
+
+            <input type="submit" value="Submit">
+        </form>
+
+        {% if study_recommendations %}
+        <h2>Study Recommendations:</h2>
+        {% for subject, recommendation in study_recommendations.items() %}
+        <h3>{{ subject }}</h3>
+        <p>{{ recommendation }}</p>
+        {% endfor %}
+        {% endif %}
+
+        {% if timetable %}
+        <h2>Timetable:</h2>
+        <div class="timetable">
+            {% for subject, df in timetable.items() %}
+            <div class="timetable-entry">
+                <h3>Subject: {{ subject }}</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Guidance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, row in df.iterrows() %}
+                        <tr>
+                            <td>{{ row['Time'] }}</td>
+                            <td>{{ row['Guidance'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
